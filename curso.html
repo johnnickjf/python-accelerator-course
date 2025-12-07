@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curso Python Pro - Domine Python em 30 Dias | Johnnick Landim</title>
+    <meta name="description" content="Aprenda Python do zero ao avançado com o Curso Python Pro. Domine programação, automação, análise de dados e muito mais. Garantia de 7 dias.">
+    <meta name="keywords" content="curso python, python para iniciantes, programação python, johnnick landim, aprender python">
+    <meta name="author" content="Johnnick Landim">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fab fa-python"></i>
+                    Python Pro
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#benefits">Benefícios</a></li>
+                    <li><a href="#modules">Módulos</a></li>
+                    <li><a href="#bonus">Bônus</a></li>
+                    <li><a href="#testimonials">Depoimentos</a></li>
+                    <li><a href="#guarantee">Garantia</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Domine <span class="highlight">Python</span> em 30 Dias e Acelere Sua Carreira</h1>
+                <p>Do zero ao avançado: Aprenda a programar, automatizar tarefas, analisar dados e criar aplicações com o método mais eficaz do mercado</p>
+                
+                <div class="price-container">
+                    <div class="old-price">De R$ 497,00</div>
+                    <div class="new-price" id="main-price">R$ 197,00</div>
+                    <div class="price-installments" id="main-installments">ou 12x de R$ 19,70</div>
+                </div>
+                
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="days">00</div>
+                        <div class="countdown-label">Dias</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="hours">00</div>
+                        <div class="countdown-label">Horas</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="minutes">00</div>
+                        <div class="countdown-label">Minutos</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="seconds">00</div>
+                        <div class="countdown-label">Segundos</div>
+                    </div>
+                </div>
+                
+                <a href="#cta" class="btn btn-large" id="cta-button">QUERO ME INSCREVER AGORA</a>
+                
+                <div class="viewers-counter">
+                    <i class="fas fa-users"></i> <span id="viewers-count">24</span> pessoas estão vendo esta página agora
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits" id="benefits">
+        <div class="container">
+            <div class="section-title">
+                <h2>O Que Você Vai Aprender</h2>
+            </div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Programação do Zero</h3>
+                    <p>Domine os fundamentos da programação mesmo sem experiência prévia. Aprenda lógica, sintaxe e boas práticas.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>Automação de Tarefas</h3>
+                    <p>Crie scripts para automatizar processos repetitivos e ganhe tempo no trabalho e no dia a dia.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Análise de Dados</h3>
+                    <p>Use bibliotecas como Pandas e Matplotlib para extrair insights valiosos de qualquer conjunto de dados.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>Desenvolvimento Web</h3>
+                    <p>Crie aplicações web completas com Django e Flask, do backend ao frontend.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>Banco de Dados</h3>
+                    <p>Conecte suas aplicações a bancos de dados relacionais e não-relacionais com SQL e MongoDB.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Segurança</h3>
+                    <p>Aprenda as melhores práticas de segurança para proteger suas aplicações de vulnerabilidades.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Section -->
+    <section class="video-section" id="video">
+        <div class="container">
+            <div class="section-title">
+                <h2>Veja o Curso em Ação</h2>
+            </div>
+            <div class="video-container">
+                <div class="video-placeholder">
+                    <div class="play-button">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modules Section -->
+    <section class="modules" id="modules">
+        <div class="container">
+            <div class="section-title">
+                <h2>Conteúdo do Curso</h2>
+            </div>
+            <div class="modules-container">
+                <div class="module">
+                    <div class="module-header">
+                        <span>Módulo 1: Fundamentos do Python</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="module-content">
+                        <ul class="module-lessons">
+                            <li>Introdução ao Python e configuração do ambiente</li>
+                            <li>Variáveis, tipos de dados e operadores</li>
+                            <li>Estruturas condicionais (if, else, elif)</li>
+                            <li>Laços de repetição (for, while)</li>
+                            <li>Funções e escopo de variáveis</li>
+                            <li>Listas, tuplas, dicionários e conjuntos</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module">
+                    <div class="module-header">
+                        <span>Módulo 2: Programação Intermediária</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="module-content">
+                        <ul class="module-lessons">
+                            <li>Compreensões de lista, dicionário e conjunto</li>
+                            <li>Manipulação de arquivos (leitura e escrita)</li>
+                            <li>Tratamento de exceções</li>
+                            <li>Programação orientada a objetos (classes, objetos, herança)</li>
+                            <li>Módulos e pacotes</li>
+                            <li>Ambientes virtuais e gerenciamento de dependências</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module">
+                    <div class="module-header">
+                        <span>Módulo 3: Automação e Scripts</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="module-content">
+                        <ul class="module-lessons">
+                            <li>Automação de tarefas com Python</li>
+                            <li>Web scraping com BeautifulSoup</li>
+                            <li>Interação com APIs</li>
+                            <li>Automação de planilhas Excel</li>
+                            <li>Manipulação de PDFs e documentos</li>
+                            <li>Agendamento de tarefas</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module">
+                    <div class="module-header">
+                        <span>Módulo 4: Análise de Dados</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="module-content">
+                        <ul class="module-lessons">
+                            <li>Introdução ao Pandas para análise de dados</li>
+                            <li>Manipulação e limpeza de dados</li>
+                            <li>Visualização de dados com Matplotlib e Seaborn</li>
+                            <li>Análises estatísticas básicas</li>
+                            <li>Agregação e agrupamento de dados</li>
+                            <li>Projeto prático: Análise de dados reais</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module">
+                    <div class="module-header">
+                        <span>Módulo 5: Desenvolvimento Web</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="module-content">
+                        <ul class="module-lessons">
+                            <li>Introdução ao desenvolvimento web com Flask</li>
+                            <li>Criação de APIs RESTful</li>
+                            <li>Introdução ao Django</li>
+                            <li>Modelos, views e templates</li>
+                            <li>Formulários e validação</li>
+                            <li>Deploy de aplicações web</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="module">
+                    <div class="module-header">
+                        <span>Módulo 6: Projetos Práticos</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="module-content">
+                        <ul class="module-lessons">
+                            <li>Projeto 1: Sistema de automação de relatórios</li>
+                            <li>Projeto 2: Web scraper para monitoramento de preços</li>
+                            <li>Projeto 3: Dashboard de análise de dados</li>
+                            <li>Projeto 4: API para serviço web</li>
+                            <li>Projeto 5: Aplicação web completa</li>
+                            <li>Preparação para o mercado de trabalho</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bonus Section -->
+    <section class="bonus" id="bonus">
+        <div class="container">
+            <div class="section-title">
+                <h2>Bônus Exclusivos</h2>
+            </div>
+            <div class="bonus-container">
+                <div class="bonus-card" onclick="scrollToCTA()">
+                    <h3>Ebook: Python para Automação</h3>
+                    <p>Um guia completo com 50 scripts prontos para automação de tarefas no trabalho e no dia a dia. Valor: R$ 97,00</p>
+                </div>
+                
+                <div class="bonus-card" onclick="scrollToCTA()">
+                    <h3>Curso de Git e GitHub</h3>
+                    <p>Aprenda a versionar seus projetos e colaborar com outros desenvolvedores usando a ferramenta mais popular do mercado. Valor: R$ 147,00</p>
+                </div>
+                
+                <div class="bonus-card" onclick="scrollToCTA()">
+                    <h3>Comunidade VIP</h3>
+                    <p>Acesso a um grupo exclusivo no Telegram para networking, tirar dúvidas e receber suporte direto do instrutor. Valor: R$ 197,00</p>
+                </div>
+                
+                <div class="bonus-timer">
+                    <i class="fas fa-gift"></i> Bônus disponíveis por tempo limitado!
+                </div>
+                
+                <p><strong>Total em bônus: R$ 441,00</strong></p>
+                <p>Você recebe todos esses bônus <span class="highlight">GRATUITAMENTE</span> ao se inscrever hoje!</p>
+                
+                <a href="#cta" class="btn" style="margin-top: 20px;">GARANTIR MEUS BÔNUS AGORA</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <div class="section-title">
+                <h2>O Que Nossos Alunos Dizem</h2>
+            </div>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Em apenas 3 meses após concluir o curso, consegui minha primeira vaga como desenvolvedor Python. O método de ensino é fantástico!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">MC</div>
+                        <div>
+                            <strong>Maria Clara</strong>
+                            <div>Desenvolvedora Júnior</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "Consegui automatizar processos no meu trabalho que me tomavam horas. Agora tenho mais tempo para atividades estratégicas. Valeu cada centavo!"
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">RS</div>
+                        <div>
+                            <strong>Roberto Silva</strong>
+                            <div>Analista de Dados</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="testimonial-card">
+                    <div class="testimonial-text">
+                        "O Johnnick explica de forma clara e objetiva. Mesmo sem experiência prévia em programação, consegui acompanhar todo o conteúdo sem dificuldades."
+                    </div>
+                    <div class="testimonial-author">
+                        <div class="testimonial-avatar">AS</div>
+                        <div>
+                            <strong>Ana Souza</strong>
+                            <div>Estudante de TI</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Guarantee Section -->
+    <section class="guarantee" id="guarantee">
+        <div class="container">
+            <div class="guarantee-content">
+                <div class="guarantee-badge">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h2>Garantia Incondicional de 7 Dias</h2>
+                <p>Se por qualquer motivo você não ficar satisfeito com o curso, devolvemos 100% do seu investimento. Sem perguntas, sem burocracia.</p>
+                <p>É arriscar nada para ganhar tudo! Você tem 7 dias para testar o curso e, se não gostar, recebe seu dinheiro de volta.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta" id="cta">
+        <div class="container">
+            <div class="cta-container">
+                <div class="section-title">
+                    <h2>Não Perca Esta Oportunidade</h2>
+                </div>
+                
+                <div class="price-container">
+                    <div class="old-price">De R$ 497,00</div>
+                    <div class="new-price" id="cta-price">R$ 197,00</div>
+                    <div class="price-installments" id="cta-installments">ou 12x de R$ 19,70</div>
+                </div>
+                
+                <div class="countdown" id="countdown2">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="days2">00</div>
+                        <div class="countdown-label">Dias</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="hours2">00</div>
+                        <div class="countdown-label">Horas</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="minutes2">00</div>
+                        <div class="countdown-label">Minutos</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="seconds2">00</div>
+                        <div class="countdown-label">Segundos</div>
+                    </div>
+                </div>
+                
+                <h3>HOJE VOCÊ LEVA:</h3>
+                <ul class="bonus-list">
+                    <li><strong>Curso Python Pro Completo</strong> - 25 aulas + projetos práticos</li>
+                    <li><strong>Ebook: Python para Automação</strong> - 50 scripts prontos (BÔNUS)</li>
+                    <li><strong>Curso de Git e GitHub</strong> - Controle de versão (BÔNUS)</li>
+                    <li><strong>Comunidade VIP</strong> - Suporte direto com o instrutor (BÔNUS)</li>
+                    <li><strong>Certificado de Conclusão</strong> - Valide seus conhecimentos</li>
+                    <li><strong>Acesso Vitalício</strong> - Estude no seu ritmo</li>
+                    <li><strong>Atualizações Gratuitas</strong> - Conteúdo sempre atualizado</li>
+                    <li><strong>Garantia de 7 Dias</strong> - Sem riscos para você</li>
+                </ul>
+                
+                <a href="#" class="btn btn-large" id="final-cta-button">QUERO GARANTIR MINHA VAGA AGORA</a>
+                
+                <div class="viewers-counter" style="margin-top: 20px;">
+                    <i class="fas fa-users"></i> <span id="viewers-count2">24</span> pessoas estão vendo esta página agora
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-title">
+                <h2>Perguntas Frequentes</h2>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Preciso ter experiência em programação?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Não! O curso foi desenvolvido para iniciantes absolutos. Começamos do zero e avançamos gradualmente até conceitos mais complexos.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Por quanto tempo terei acesso ao curso?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>O acesso é vitalício! Você pode assistir às aulas quantas vezes quiser, no seu próprio ritmo, e terá direito a todas as atualizações futuras sem custo adicional.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Como funciona a garantia de 7 dias?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Se dentro de 7 dias após a compra você não estiver satisfeito com o curso, basta enviar um e-mail que devolveremos 100% do valor pago, sem burocracia.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Recebo algum certificado?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim! Ao concluir o curso, você receberá um certificado de conclusão que poderá adicionar ao seu LinkedIn e currículo.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Posso parcelar o curso?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sim! Oferecemos parcelamento em até 12x no cartão de crédito. O valor da parcela fica a partir de R$ 19,70.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Python Pro</h3>
+                    <p>Domine Python em 30 dias e acelere sua carreira com o método mais eficaz do mercado.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Links Rápidos</h3>
+                    <p><a href="#benefits">Benefícios</a></p>
+                    <p><a href="#modules">Módulos</a></p>
+                    <p><a href="#bonus">Bônus</a></p>
+                    <p><a href="#testimonials">Depoimentos</a></p>
+                    <p><a href="#guarantee">Garantia</a></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contato</h3>
+                    <p><i class="fas fa-envelope"></i> contato@pythonpro.com</p>
+                    <p><i class="fas fa-phone"></i> +55 32 99144-7768</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Juiz de Fora, MG</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Python Pro. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Button -->
+    <a href="https://wa.me/5532991447768?text=Olá! Gostaria de tirar dúvidas sobre o curso Python Pro" class="whatsapp-btn">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+    <script src="script.js"></script>
+</body>
+</html>
