@@ -97,7 +97,7 @@ function updateCountdown() {
         
         // Alterar os links dos botões de compra
         promoLink = expiredLink;
-        document.getElementById('cta-button').href = promoLink;
+        // document.getElementById('cta-button').href = promoLink;
         document.getElementById('final-cta-button').href = promoLink;
 
         // Parar o contador
@@ -174,10 +174,10 @@ function scrollToCTA() {
 }
 
 // Botões de CTA - Redirecionar para página de checkout (link atualizado dinamicamente)
-document.getElementById('cta-button').addEventListener('click', function (e) {
-    e.preventDefault();
-    // window.location.href = promoLink;
-});
+// document.getElementById('cta-button').addEventListener('click', function (e) {
+//     e.preventDefault();
+//     window.location.href = promoLink;
+// });
 
 document.getElementById('final-cta-button').addEventListener('click', function (e) {
     e.preventDefault();
