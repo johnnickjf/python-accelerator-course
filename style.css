@@ -169,18 +169,20 @@ nav {
 }
 
 .countdown-item {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgb(255, 255, 255);
     padding: 15px;
     border-radius: var(--border-radius);
     min-width: 80px;
 }
 
 .countdown-number {
+    color: var(--dark);
     font-size: 2rem;
     font-weight: 700;
 }
 
 .countdown-label {
+    color: var(--dark);
     font-size: 0.9rem;
     opacity: 0.9;
 }
@@ -275,6 +277,9 @@ nav {
     box-shadow: var(--shadow);
     transition: var(--transition);
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .benefit-card:hover {
@@ -286,10 +291,11 @@ nav {
     font-size: 2.5rem;
     color: var(--primary);
     margin-bottom: 20px;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 80px;
     height: 80px;
-    line-height: 80px;
     background-color: rgba(48, 105, 152, 0.1);
     border-radius: 50%;
 }
@@ -298,6 +304,11 @@ nav {
     font-size: 1.5rem;
     margin-bottom: 15px;
     color: var(--secondary);
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 /* Video Section */
@@ -308,14 +319,26 @@ nav {
     text-align: center;
 }
 
+.video-section .section-title h2 {
+    color: white !important;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
 .video-container {
     max-width: 800px;
     margin: 0 auto;
     position: relative;
 }
 
+.video-wrapper {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
 .video-placeholder {
-    background-color: rgba(0, 0, 0, 0.3);
+    background: linear-gradient(135deg, #1a365d, #2d3748);
     border-radius: var(--border-radius);
     padding: 30% 0;
     position: relative;
@@ -557,7 +580,7 @@ nav {
     margin: 0 auto 30px;
 }
 
-/* CTA Section */
+/* CTA Section - CORREÇÃO DO PREÇO FINAL */
 .cta {
     padding: 80px 0;
     background-color: white;
@@ -571,6 +594,75 @@ nav {
     padding: 40px;
     border-radius: var(--border-radius);
     box-shadow: var(--shadow);
+    position: relative;
+    border: 2px solid var(--secondary);
+}
+
+.cta-container::before {
+    content: 'OFERTA ESPECIAL';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--secondary);
+    color: var(--dark);
+    padding: 5px 20px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: var(--shadow);
+    z-index: 2;
+}
+
+/* PREÇO FINAL CORRIGIDO - SEM FUNDO PRETO */
+.price-highlight {
+    background: white;
+    border: 2px solid var(--secondary);
+    padding: 25px;
+    margin: 30px 0;
+    border-radius: var(--border-radius);
+    box-shadow: 0 8px 20px rgba(255, 212, 59, 0.2);
+    position: relative;
+}
+
+.price-highlight .new-price {
+    color: #FFD43B;
+    font-size: 3.5rem;
+    font-weight: 800;
+    display: inline-block;
+    padding: 10px 0;
+    margin: 15px 0;
+    position: relative;
+    text-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.1),
+        0 4px 8px rgba(255, 212, 59, 0.3);
+    /* animation: gentleGlow 1s infinite ease-in-out; */
+}
+
+/* Adicionar um sublinhado decorativo */
+.price-highlight .new-price::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 10%;
+    width: 80%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--secondary), transparent);
+    border-radius: 2px;
+}
+
+@keyframes gentleGlow {
+    0%, 100% {
+        text-shadow: 
+            0 2px 4px rgba(0, 0, 0, 0.1),
+            0 4px 8px rgba(255, 212, 59, 0.3);
+    }
+    50% {
+        text-shadow: 
+            0 2px 4px rgba(0, 0, 0, 0.1),
+            0 4px 16px rgba(255, 212, 59, 0.6),
+            0 0 20px rgba(255, 212, 59, 0.8);
+    }
 }
 
 .bonus-list {
@@ -824,4 +916,68 @@ footer {
     .cta-container {
         padding: 30px 20px;
     }
+    
+    .price-highlight .new-price {
+        font-size: 2.8rem;
+    }
+    
+    .benefit-icon {
+        width: 70px;
+        height: 70px;
+    }
+    
+    .benefit-icon i {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .benefit-icon {
+        width: 60px;
+        height: 60px;
+    }
+    
+    .benefit-icon i {
+        font-size: 1.5rem;
+    }
+    
+    .price-highlight .new-price {
+        font-size: 2.2rem;
+    }
+}
+
+/* Melhor visualização dos bônus */
+
+/* .bonus-card::after {
+    content: 'CLIQUE PARA GARANTIR';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.bonus-card:hover::after {
+    opacity: 1;
+    bottom: -15px;
+} */
+
+/* Garantir que todos os ícones estejam perfeitamente centralizados */
+.benefits-grid {
+    justify-items: center;
+}
+
+.benefits-grid .benefit-card {
+    width: 100%;
+    max-width: 350px;
 }

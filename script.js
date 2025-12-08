@@ -62,8 +62,10 @@ moduleHeaders.forEach(header => {
     });
 });
 
-// Countdown Timer - CORRIGIDO
+// Countdown Timer - COM LINK ALTERADO APÓS EXPIRAR
 let countdownEnded = false;
+let promoLink = 'https://pay.kiwify.com.br/1pVnGzp'; // Link inicial
+let expiredLink = 'https://pay.kiwify.com.br/8LLeOKc'; // Link após expirar
 
 function updateCountdown() {
     if (countdownEnded) return;
@@ -85,13 +87,18 @@ function updateCountdown() {
     const timeLeft = targetTime - now;
 
     if (timeLeft <= 0) {
-        // Tempo esgotado - alterar preço e texto do botão
-        document.getElementById('main-price').textContent = 'R$ 297,00';
-        document.getElementById('main-installments').textContent = 'ou 12x de R$ 29,70';
-        document.getElementById('cta-price').textContent = 'R$ 297,00';
-        document.getElementById('cta-installments').textContent = 'ou 12x de R$ 29,70';
-        document.getElementById('cta-button').textContent = 'COMPRAR AGORA POR R$ 297,00';
-        document.getElementById('final-cta-button').textContent = 'COMPRAR AGORA POR R$ 297,00';
+        // TEMPO ESGOTADO - VALORES CORRIGIDOS
+        document.getElementById('main-price').textContent = 'R$ 197,00';
+        document.getElementById('main-installments').textContent = 'ou 12x de R$ 20,37'; // CORRIGIDO
+        document.getElementById('cta-price').textContent = 'R$ 197,00';
+        document.getElementById('cta-installments').textContent = 'ou 12x de R$ 20,37'; // CORRIGIDO
+        document.getElementById('cta-button').textContent = 'COMPRAR AGORA POR R$ 197,00';
+        document.getElementById('final-cta-button').textContent = 'COMPRAR AGORA POR R$ 197,00';
+        
+        // Alterar os links dos botões de compra
+        promoLink = expiredLink;
+        document.getElementById('cta-button').href = promoLink;
+        document.getElementById('final-cta-button').href = promoLink;
 
         // Parar o contador
         countdownEnded = true;
@@ -119,9 +126,9 @@ function updateCountdown() {
 const countdownInterval = setInterval(updateCountdown, 1000);
 updateCountdown(); // Chamar imediatamente para evitar atraso inicial
 
-// Simular visualizadores ativos - CORRIGIDO
+// Simular visualizadores ativos
 function updateViewers() {
-    const baseViewers = 20;
+    const baseViewers = 3;
     const randomViewers = Math.floor(Math.random() * 15) + 1; // Entre 1 e 15
     const totalViewers = baseViewers + randomViewers;
 
@@ -129,7 +136,7 @@ function updateViewers() {
     document.getElementById('viewers-count2').textContent = totalViewers;
 }
 
-setInterval(updateViewers, 5000); // Atualizar a cada 5 segundos
+setInterval(updateViewers, 10000); // Atualizar a cada 10 segundos
 updateViewers(); // Chamar imediatamente
 
 // Smooth Scroll para âncoras
@@ -166,25 +173,46 @@ function scrollToCTA() {
     }
 }
 
-// Botões de CTA - Redirecionar para página de checkout
+// Botões de CTA - Redirecionar para página de checkout (link atualizado dinamicamente)
 document.getElementById('cta-button').addEventListener('click', function (e) {
     e.preventDefault();
-    // Aqui você redirecionaria para a página de checkout
-    alert('Redirecionando para a página de pagamento...');
-    // window.location.href = 'https://seusite.com/checkout';
+    // window.location.href = promoLink;
 });
 
 document.getElementById('final-cta-button').addEventListener('click', function (e) {
     e.preventDefault();
-    // Aqui você redirecionaria para a página de checkout
-    alert('Redirecionando para a página de pagamento...');
-    // window.location.href = 'https://seusite.com/checkout';
+    window.location.href = promoLink;
 });
 
-// Video Placeholder Click
-document.querySelector('.video-placeholder').addEventListener('click', function () {
-    alert('Abrindo vídeo de apresentação do curso...');
-    // Aqui você implementaria a abertura do vídeo real
+// Video Placeholder Click - NOVO VÍDEO
+document.getElementById('video-placeholder').addEventListener('click', function () {
+    // ID do novo vídeo do YouTube (substitua pelo seu)
+    const videoId = 'dQw4w9WgXcQ'; // Exemplo - SUBSTITUA pelo ID do seu vídeo
+    const iframe = document.createElement('iframe');
+    
+    iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`);
+    iframe.setAttribute('frameborder', '0');
+    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+    iframe.setAttribute('allowfullscreen', '');
+    iframe.style.width = '100%';
+    iframe.style.height = '100%';
+    iframe.style.position = 'absolute';
+    iframe.style.top = '0';
+    iframe.style.left = '0';
+    
+    // Substituir o placeholder pelo vídeo
+    this.innerHTML = '';
+    this.appendChild(iframe);
+    this.classList.add('video-playing');
+    
+    // Atualizar mensagem
+    const videoContainer = this.closest('.video-container');
+    if (videoContainer) {
+        const message = videoContainer.querySelector('p');
+        if (message) {
+            message.innerHTML = '<strong>Assista agora:</strong> Veja como o Acelerador Python pode transformar sua produtividade em apenas 30 dias.';
+        }
+    }
 });
 
 // Animações ao rolar
@@ -204,3 +232,33 @@ const animateOnScroll = () => {
 window.addEventListener('scroll', animateOnScroll);
 // Executar uma vez ao carregar a página
 window.addEventListener('load', animateOnScroll);
+
+// Garantir que os preços iniciais estejam corretos
+function initializePrices() {
+    // Garantir que o parcelamento inicial está correto
+    const installmentsElements = document.querySelectorAll('.price-installments');
+    installmentsElements.forEach(el => {
+        if (el.textContent.includes('9,70')) {
+            el.textContent = el.textContent.replace('9,70', '10,03');
+        }
+    });
+    
+    // Garantir que os valores à vista estejam corretos
+    const priceElements = document.querySelectorAll('.new-price');
+    priceElements.forEach(el => {
+        if (el.textContent.includes('R$ 97,00')) {
+            // Já está correto
+        }
+    });
+}
+
+// Inicializar quando o DOM estiver carregado
+document.addEventListener('DOMContentLoaded', function() {
+    initializePrices();
+    
+    // Garantir que o título do vídeo esteja branco
+    const videoTitle = document.querySelector('.video-section .section-title h2');
+    if (videoTitle) {
+        videoTitle.style.color = 'white';
+    }
+});
