@@ -64,7 +64,7 @@ moduleHeaders.forEach(header => {
 
 // Countdown Timer - COM LINK ALTERADO APÓS EXPIRAR
 let countdownEnded = false;
-let promoLink = 'https://pay.kiwify.com.br/1pVnGzp'; // Link inicial
+let promoLink = 'https://pay.kiwify.com.br/k9xHqNV'; // Link inicial
 let expiredLink = 'https://pay.kiwify.com.br/8LLeOKc'; // Link após expirar
 
 function updateCountdown() {
