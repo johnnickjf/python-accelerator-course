@@ -185,80 +185,98 @@ document.getElementById('final-cta-button').addEventListener('click', function (
 });
 
 // ===== NOVO CÓDIGO PARA THUMBNAIL DO VÍDEO =====
-function loadVideoThumbnail() {
+function initializeVideoPlayer() {
     const videoPlaceholder = document.getElementById('video-placeholder');
-    if (!videoPlaceholder) return;
+    const playButton = document.getElementById('play-button');
     
-    // ID do seu vídeo do YouTube (substitua se necessário)
-    const videoId = 'gAjmKvZY_zA';
+    if (!videoPlaceholder || !playButton) return;
     
-    // URLs da thumbnail do YouTube (tentamos a melhor qualidade primeiro)
-    const thumbnailUrls = [
-        `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`, // Máxima resolução
-        `https://img.youtube.com/vi/${videoId}/sddefault.jpg`,    // Padrão SD
-        `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`     // Alta qualidade
-    ];
+    const videoId = 'gAjmKvZY_zA'; // ID do seu vídeo do YouTube
     
-    // Criar elemento da imagem
-    const thumbnailImg = new Image();
-    thumbnailImg.className = 'video-thumbnail';
-    thumbnailImg.alt = 'Thumbnail do vídeo sobre o curso Acelerador Python';
-    thumbnailImg.loading = 'lazy';
+    // Verificar se a imagem da thumbnail existe
+    const thumbnailImg = videoPlaceholder.querySelector('.video-thumbnail-img');
     
-    // Função para tentar carregar a próxima URL se falhar
-    let currentUrlIndex = 0;
-    
-    function tryNextUrl() {
-        if (currentUrlIndex < thumbnailUrls.length) {
-            thumbnailImg.src = thumbnailUrls[currentUrlIndex];
-            currentUrlIndex++;
+    // Se a imagem não carregar, mostrar fallback
+    if (thumbnailImg) {
+        thumbnailImg.onerror = function() {
+            console.log('Erro ao carregar thumbnail local, usando fallback do YouTube');
+            loadYouTubeThumbnail(videoId, videoPlaceholder);
+        };
+        
+        // Verificar se a imagem carregou
+        if (thumbnailImg.complete && thumbnailImg.naturalWidth === 0) {
+            console.log('Thumbnail local não encontrada, usando fallback do YouTube');
+            loadYouTubeThumbnail(videoId, videoPlaceholder);
         }
+    } else {
+        // Se não houver imagem local, carregar do YouTube
+        loadYouTubeThumbnail(videoId, videoPlaceholder);
     }
     
-    // Quando a imagem carregar com sucesso
-    thumbnailImg.onload = function() {
-        // Verificar se a imagem é válida (não é a imagem de fallback do YouTube)
-        if (this.naturalWidth > 120 && this.naturalHeight > 90) {
-            // Adicionar a imagem ao placeholder
-            videoPlaceholder.appendChild(thumbnailImg);
-            console.log('Thumbnail carregada com sucesso:', this.src);
-        } else {
-            // Se a imagem for muito pequena (provavelmente fallback), tentar próxima
-            tryNextUrl();
+    // Função para carregar thumbnail do YouTube como fallback
+    function loadYouTubeThumbnail(videoId, container) {
+        const thumbnailUrls = [
+            `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`,
+            `https://img.youtube.com/vi/${videoId}/sddefault.jpg`,
+            `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
+        ];
+        
+        const thumbnailImg = new Image();
+        thumbnailImg.className = 'video-thumbnail-img';
+        thumbnailImg.alt = 'Thumbnail do vídeo sobre o curso Acelerador Python';
+        thumbnailImg.loading = 'lazy';
+        
+        let currentUrlIndex = 0;
+        
+        function tryNextUrl() {
+            if (currentUrlIndex < thumbnailUrls.length) {
+                thumbnailImg.src = thumbnailUrls[currentUrlIndex];
+                currentUrlIndex++;
+            }
         }
-    };
+        
+        thumbnailImg.onload = function() {
+            if (this.naturalWidth > 120 && this.naturalHeight > 90) {
+                // Remover imagem existente (se houver)
+                const existingImg = container.querySelector('.video-thumbnail-img');
+                if (existingImg) {
+                    existingImg.remove();
+                }
+                
+                // Inserir antes do overlay
+                const overlay = container.querySelector('.thumbnail-overlay');
+                if (overlay) {
+                    container.insertBefore(thumbnailImg, overlay);
+                } else {
+                    container.appendChild(thumbnailImg);
+                }
+            } else {
+                tryNextUrl();
+            }
+        };
+        
+        thumbnailImg.onerror = tryNextUrl;
+        
+        tryNextUrl();
+    }
     
-    // Se der erro ao carregar a imagem
-    thumbnailImg.onerror = tryNextUrl;
-    
-    // Começar a tentar carregar
-    tryNextUrl();
-    
-    // Adicionar o botão de play (sempre presente)
-    const playButton = document.createElement('div');
-    playButton.className = 'play-button';
-    playButton.innerHTML = '<i class="fas fa-play"></i>';
-    videoPlaceholder.appendChild(playButton);
-    
-    // Evento de clique para reproduzir o vídeo
-    videoPlaceholder.addEventListener('click', function playVideo() {
+    // Função para reproduzir o vídeo
+    function playVideo() {
         // Criar iframe do YouTube
         const iframe = document.createElement('iframe');
-        iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`);
+        iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1&showinfo=0`);
         iframe.setAttribute('frameborder', '0');
         iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
         iframe.setAttribute('allowfullscreen', '');
         iframe.style.width = '100%';
         iframe.style.height = '100%';
-        iframe.style.position = 'absolute';
-        iframe.style.top = '0';
-        iframe.style.left = '0';
-        iframe.style.borderRadius = 'var(--border-radius)';
+        
+        // Adicionar classe para indicar que o vídeo está tocando
+        videoPlaceholder.classList.add('video-playing');
         
         // Limpar o placeholder e adicionar o iframe
         videoPlaceholder.innerHTML = '';
         videoPlaceholder.appendChild(iframe);
-        videoPlaceholder.classList.add('video-playing');
         
         // Atualizar mensagem abaixo do vídeo
         const videoContainer = videoPlaceholder.closest('.video-container');
@@ -269,8 +287,101 @@ function loadVideoThumbnail() {
             }
         }
         
-        // Remover o evento de clique para evitar múltiplos iframes
-        videoPlaceholder.removeEventListener('click', playVideo);
+        // Monitorar quando o vídeo terminar (API do YouTube)
+        window.addEventListener('message', function(event) {
+            if (event.data === 'ended' || (event.data && event.data.event === 'ended')) {
+                resetVideoPlayer();
+            }
+        });
+        
+        // Adicionar botão para resetar o vídeo (para casos onde a API não funciona)
+        setTimeout(() => {
+            const resetBtn = document.createElement('button');
+            resetBtn.className = 'reset-video-btn';
+            resetBtn.innerHTML = '<i class="fas fa-redo"></i> Assistir novamente';
+            resetBtn.style.position = 'absolute';
+            resetBtn.style.bottom = '15px';
+            resetBtn.style.left = '50%';
+            resetBtn.style.transform = 'translateX(-50%)';
+            resetBtn.style.backgroundColor = 'rgba(0,0,0,0.8)';
+            resetBtn.style.color = 'white';
+            resetBtn.style.border = 'none';
+            resetBtn.style.padding = '10px 20px';
+            resetBtn.style.borderRadius = '20px';
+            resetBtn.style.cursor = 'pointer';
+            resetBtn.style.zIndex = '5';
+            resetBtn.style.fontSize = '0.9rem';
+            
+            resetBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                resetVideoPlayer();
+            });
+            
+            videoPlaceholder.appendChild(resetBtn);
+        }, 2000);
+    }
+    
+    // Função para resetar o player
+    function resetVideoPlayer() {
+        // Limpar o placeholder
+        videoPlaceholder.innerHTML = '';
+        videoPlaceholder.classList.remove('video-playing');
+        
+        // Recriar a estrutura da thumbnail
+        const thumbnailImg = document.createElement('img');
+        thumbnailImg.src = 'images/video-thumbnail.jpg';
+        thumbnailImg.className = 'video-thumbnail-img';
+        thumbnailImg.alt = 'Thumbnail do vídeo sobre o curso Acelerador Python';
+        thumbnailImg.onerror = function() {
+            // Se a imagem local falhar, usar fallback do YouTube
+            loadYouTubeThumbnail(videoId, videoPlaceholder);
+        };
+        
+        const overlay = document.createElement('div');
+        overlay.className = 'thumbnail-overlay';
+        
+        const playBtn = document.createElement('div');
+        playBtn.className = 'play-button';
+        playBtn.id = 'play-button';
+        playBtn.innerHTML = '<i class="fas fa-play"></i>';
+        
+        // Adicionar elementos ao placeholder
+        videoPlaceholder.appendChild(thumbnailImg);
+        videoPlaceholder.appendChild(overlay);
+        videoPlaceholder.appendChild(playBtn);
+        
+        // Reatribuir evento de clique
+        playBtn.addEventListener('click', playVideo);
+        videoPlaceholder.addEventListener('click', function(e) {
+            if (e.target === videoPlaceholder || e.target === overlay) {
+                playVideo();
+            }
+        });
+        
+        // Restaurar mensagem original
+        const videoContainer = videoPlaceholder.closest('.video-container');
+        if (videoContainer) {
+            const message = videoContainer.parentElement.querySelector('p');
+            if (message) {
+                message.innerHTML = '<strong>Isso não é mágica, é Python.</strong> E a boa notícia? Você não precisa ser um gênio da matemática ou um programador experiente para usar isso a seu favor.';
+            }
+        }
+        
+        // Recarregar a thumbnail se necessário
+        initializeVideoPlayer();
+    }
+    
+    // Adicionar eventos de clique
+    if (playButton) {
+        playButton.addEventListener('click', playVideo);
+    }
+    
+    videoPlaceholder.addEventListener('click', function(e) {
+        if (e.target === videoPlaceholder || 
+            e.target.classList.contains('thumbnail-overlay') || 
+            e.target.classList.contains('video-thumbnail-img')) {
+            playVideo();
+        }
     });
 }
 
@@ -292,24 +403,12 @@ window.addEventListener('scroll', animateOnScroll);
 
 // Inicializar quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
-    // Garantir que os preços iniciais estejam corretos
-    function initializePrices() {
-        const installmentsElements = document.querySelectorAll('.price-installments');
-        installmentsElements.forEach(el => {
-            if (el.textContent.includes('9,70')) {
-                el.textContent = el.textContent.replace('9,70', '10,03');
-            }
-        });
-    }
-    
-    initializePrices();
-    
     // Garantir que o título do vídeo esteja branco
     const videoTitle = document.querySelector('.video-section .section-title h2');
     if (videoTitle) {
         videoTitle.style.color = 'white';
     }
     
-    // Carregar a thumbnail do vídeo
-    loadVideoThumbnail();
+    // Inicializar o player de vídeo
+    initializeVideoPlayer();
 });
