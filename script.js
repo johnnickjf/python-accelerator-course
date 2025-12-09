@@ -184,36 +184,95 @@ document.getElementById('final-cta-button').addEventListener('click', function (
     window.location.href = promoLink;
 });
 
-// Video Placeholder Click - NOVO VÍDEO
-document.getElementById('video-placeholder').addEventListener('click', function () {
-    // ID do novo vídeo do YouTube (substitua pelo seu)
-    const videoId = 'gAjmKvZY_zA'; // Exemplo - SUBSTITUA pelo ID do seu vídeo
-    const iframe = document.createElement('iframe');
+// ===== NOVO CÓDIGO PARA THUMBNAIL DO VÍDEO =====
+function loadVideoThumbnail() {
+    const videoPlaceholder = document.getElementById('video-placeholder');
+    if (!videoPlaceholder) return;
     
-    iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`);
-    iframe.setAttribute('frameborder', '0');
-    iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
-    iframe.setAttribute('allowfullscreen', '');
-    iframe.style.width = '100%';
-    iframe.style.height = '100%';
-    iframe.style.position = 'absolute';
-    iframe.style.top = '0';
-    iframe.style.left = '0';
+    // ID do seu vídeo do YouTube (substitua se necessário)
+    const videoId = 'gAjmKvZY_zA';
     
-    // Substituir o placeholder pelo vídeo
-    this.innerHTML = '';
-    this.appendChild(iframe);
-    this.classList.add('video-playing');
+    // URLs da thumbnail do YouTube (tentamos a melhor qualidade primeiro)
+    const thumbnailUrls = [
+        `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`, // Máxima resolução
+        `https://img.youtube.com/vi/${videoId}/sddefault.jpg`,    // Padrão SD
+        `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`     // Alta qualidade
+    ];
     
-    // Atualizar mensagem
-    const videoContainer = this.closest('.video-container');
-    if (videoContainer) {
-        const message = videoContainer.querySelector('p');
-        if (message) {
-            message.innerHTML = '<strong>Assista agora:</strong> Veja como o Acelerador Python pode transformar sua produtividade em apenas 30 dias.';
+    // Criar elemento da imagem
+    const thumbnailImg = new Image();
+    thumbnailImg.className = 'video-thumbnail';
+    thumbnailImg.alt = 'Thumbnail do vídeo sobre o curso Acelerador Python';
+    thumbnailImg.loading = 'lazy';
+    
+    // Função para tentar carregar a próxima URL se falhar
+    let currentUrlIndex = 0;
+    
+    function tryNextUrl() {
+        if (currentUrlIndex < thumbnailUrls.length) {
+            thumbnailImg.src = thumbnailUrls[currentUrlIndex];
+            currentUrlIndex++;
         }
     }
-});
+    
+    // Quando a imagem carregar com sucesso
+    thumbnailImg.onload = function() {
+        // Verificar se a imagem é válida (não é a imagem de fallback do YouTube)
+        if (this.naturalWidth > 120 && this.naturalHeight > 90) {
+            // Adicionar a imagem ao placeholder
+            videoPlaceholder.appendChild(thumbnailImg);
+            console.log('Thumbnail carregada com sucesso:', this.src);
+        } else {
+            // Se a imagem for muito pequena (provavelmente fallback), tentar próxima
+            tryNextUrl();
+        }
+    };
+    
+    // Se der erro ao carregar a imagem
+    thumbnailImg.onerror = tryNextUrl;
+    
+    // Começar a tentar carregar
+    tryNextUrl();
+    
+    // Adicionar o botão de play (sempre presente)
+    const playButton = document.createElement('div');
+    playButton.className = 'play-button';
+    playButton.innerHTML = '<i class="fas fa-play"></i>';
+    videoPlaceholder.appendChild(playButton);
+    
+    // Evento de clique para reproduzir o vídeo
+    videoPlaceholder.addEventListener('click', function playVideo() {
+        // Criar iframe do YouTube
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0&modestbranding=1`);
+        iframe.setAttribute('frameborder', '0');
+        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.position = 'absolute';
+        iframe.style.top = '0';
+        iframe.style.left = '0';
+        iframe.style.borderRadius = 'var(--border-radius)';
+        
+        // Limpar o placeholder e adicionar o iframe
+        videoPlaceholder.innerHTML = '';
+        videoPlaceholder.appendChild(iframe);
+        videoPlaceholder.classList.add('video-playing');
+        
+        // Atualizar mensagem abaixo do vídeo
+        const videoContainer = videoPlaceholder.closest('.video-container');
+        if (videoContainer) {
+            const message = videoContainer.parentElement.querySelector('p');
+            if (message) {
+                message.innerHTML = '<strong>Agora você está assistindo:</strong> Veja como o Acelerador Python pode transformar sua produtividade em apenas 30 dias.';
+            }
+        }
+        
+        // Remover o evento de clique para evitar múltiplos iframes
+        videoPlaceholder.removeEventListener('click', playVideo);
+    });
+}
 
 // Animações ao rolar
 const animateOnScroll = () => {
@@ -230,30 +289,19 @@ const animateOnScroll = () => {
 };
 
 window.addEventListener('scroll', animateOnScroll);
-// Executar uma vez ao carregar a página
-window.addEventListener('load', animateOnScroll);
-
-// Garantir que os preços iniciais estejam corretos
-function initializePrices() {
-    // Garantir que o parcelamento inicial está correto
-    const installmentsElements = document.querySelectorAll('.price-installments');
-    installmentsElements.forEach(el => {
-        if (el.textContent.includes('9,70')) {
-            el.textContent = el.textContent.replace('9,70', '10,03');
-        }
-    });
-    
-    // Garantir que os valores à vista estejam corretos
-    const priceElements = document.querySelectorAll('.new-price');
-    priceElements.forEach(el => {
-        if (el.textContent.includes('R$ 97,00')) {
-            // Já está correto
-        }
-    });
-}
 
 // Inicializar quando o DOM estiver carregado
 document.addEventListener('DOMContentLoaded', function() {
+    // Garantir que os preços iniciais estejam corretos
+    function initializePrices() {
+        const installmentsElements = document.querySelectorAll('.price-installments');
+        installmentsElements.forEach(el => {
+            if (el.textContent.includes('9,70')) {
+                el.textContent = el.textContent.replace('9,70', '10,03');
+            }
+        });
+    }
+    
     initializePrices();
     
     // Garantir que o título do vídeo esteja branco
@@ -261,4 +309,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (videoTitle) {
         videoTitle.style.color = 'white';
     }
+    
+    // Carregar a thumbnail do vídeo
+    loadVideoThumbnail();
 });

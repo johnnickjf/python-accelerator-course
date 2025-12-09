@@ -337,14 +337,33 @@ nav {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
+/* NOVO: Container da thumbnail */
 .video-placeholder {
-    background: linear-gradient(135deg, #1a365d, #2d3748);
-    border-radius: var(--border-radius);
-    padding: 30% 0;
     position: relative;
     overflow: hidden;
     cursor: pointer;
+    border-radius: var(--border-radius);
+    height: 450px; /* Altura fixa */
+    background-color: #000;
+    background-size: cover;
+    background-position: center;
 }
+
+/* Para manter a proporção responsiva */
+@media (max-width: 768px) {
+    .video-placeholder {
+        height: 300px;
+    }
+}
+
+@media (max-width: 480px) {
+    .video-placeholder {
+        height: 250px;
+    }
+}
+
+/* ===== OPÇÃO 1: COM BLUR TRANSPARENTE ===== */
+/* Descomente esta seção para usar blur transparente */
 
 .video-placeholder::before {
     content: '';
@@ -353,8 +372,32 @@ nav {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, rgba(255, 212, 59, 0.3), rgba(75, 139, 190, 0.3));
+    
+    /* AJUSTE AQUI: Controle a transparência do blur */
+    /* Valores possíveis: 0.1 (muito transparente) a 0.9 (pouco transparente) */
+    background: rgba(0, 0, 0, 0.3); /* ← ALTERE ESTE VALOR (0.3) */
+    
+    /* Se quiser blur, descomente a linha abaixo e ajuste o valor */
+    /* backdrop-filter: blur(3px); */
+    
+    transition: var(--transition);
+    z-index: 1;
 }
+
+/* Efeito hover - reduz a opacidade ao passar o mouse */
+.video-placeholder:hover::before {
+    background: rgba(0, 0, 0, 0.1); /* ← ALTERE ESTE VALOR para hover */
+    /* backdrop-filter: blur(1px); */
+}
+
+/* ===== OPÇÃO 2: SEM BLUR ===== */
+/* Comente ou remova a seção ::above se não quiser blur */
+
+/*
+.video-placeholder::before {
+    display: none; 
+}
+*/
 
 .play-button {
     position: absolute;
@@ -372,10 +415,25 @@ nav {
     font-size: 2rem;
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
     transition: var(--transition);
+    z-index: 10; /* Garantir que fique acima da thumbnail */
 }
 
 .play-button:hover {
     transform: translate(-50%, -50%) scale(1.1);
+    background-color: #ffed4e;
+}
+
+/* Estilo da imagem da thumbnail */
+.video-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    transition: transform 0.3s ease;
+}
+
+.video-placeholder:hover .video-thumbnail {
+    transform: scale(1.02);
 }
 
 /* Modules Section */
