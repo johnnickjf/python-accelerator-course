@@ -187,7 +187,7 @@ document.getElementById('final-cta-button').addEventListener('click', function (
 // Video Placeholder Click - NOVO VÍDEO
 document.getElementById('video-placeholder').addEventListener('click', function () {
     // ID do novo vídeo do YouTube (substitua pelo seu)
-    const videoId = 'dQw4w9WgXcQ'; // Exemplo - SUBSTITUA pelo ID do seu vídeo
+    const videoId = 'gAjmKvZY_zA'; // Exemplo - SUBSTITUA pelo ID do seu vídeo
     const iframe = document.createElement('iframe');
     
     iframe.setAttribute('src', `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`);
